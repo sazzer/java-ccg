@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Entire list of entries on a Leaderboard",
+  "description": "",
+  "links": [
+
+  ],
+  "type": "object",
+  "properties": {
+    "entries": {
+      "type": "array",
+      "items": {
+        "$ref": "LeaderboardEntry.json"
+      }
+    },
+    "totalResults": {
+      "type": "integer"
+    }
+  },
+  "required": [
+    "enries",
+    "totalResults"
+  ],
+  "additionalProperties": false
+}

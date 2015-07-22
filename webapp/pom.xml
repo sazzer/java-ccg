@@ -42,6 +42,21 @@
         </dependency>
     </dependencies>
     <build>
-        <plugins></plugins>
+        <plugins>
+            <plugin>
+                <groupId>org.jsonschema2pojo</groupId>
+                <artifactId>jsonschema2pojo-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <targetPackage>uk.co.grahamcox.ccg.webapp.types</targetPackage>
+                </configuration>
+            </plugin>
+        </plugins>
     </build>
 </project>
