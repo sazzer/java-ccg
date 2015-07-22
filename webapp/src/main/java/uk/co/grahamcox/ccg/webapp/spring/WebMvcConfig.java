@@ -3,7 +3,8 @@ package uk.co.grahamcox.ccg.webapp.spring;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
-import com.fasterxml.jackson.datatype.jsr310.JSR310Module;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import java.util.List;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,10 +18,9 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
-
-import java.util.List;
 
 /**
  * Configuration for the Spring WebMVC details
@@ -28,6 +28,15 @@ import java.util.List;
 @Configuration
 @EnableWebMvc
 public class WebMvcConfig extends WebMvcConfigurerAdapter {
+    /** Base for the API Schema handlers */
+    private static final String API_SCHEMA_URL = "/api/schema";
+
+    /** URL for the API Schema RAML file */
+    private static final String CCG_RAML_URL = API_SCHEMA_URL + "/ccg.raml";
+
+    /** View for the API Schema RAML file */
+    private static final String CCG_RAML_VIEW = "schema.raml";
+
     /** {@inheritDoc} */
     @Override
     public void configureDefaultServletHandling(final DefaultServletHandlerConfigurer configurer) {
@@ -38,7 +47,14 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     @Override
     public void addResourceHandlers(final ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/resources/**").addResourceLocations("classpath:/resources/");
-        registry.addResourceHandler("/api/schema/**/*.json").addResourceLocations("classpath:/schema/");
+        registry.addResourceHandler(API_SCHEMA_URL + "/**/*.json").addResourceLocations("classpath:/schema/");
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public void addViewControllers(final ViewControllerRegistry registry) {
+        registry.addViewController(CCG_RAML_URL).setViewName(CCG_RAML_VIEW);
+        registry.addRedirectViewController(API_SCHEMA_URL, CCG_RAML_URL);
     }
 
     /**
@@ -64,6 +80,11 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
         resource.setDefaultEncoding("UTF-8");
         return resource;
     }
+
+    /**
+     * Configure all of the message converters to use. Specifically we have a custom Jackson converter for JSON
+     * @param converters The list of converters to work with
+     */
     @Override
     public void configureMessageConverters(final List<HttpMessageConverter<?>> converters) {
         // First, add all of the default converters we actually care about
@@ -83,7 +104,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     @Bean(name = "objectMapper")
     public ObjectMapper getObjectMapper() {
         ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.registerModule(new JSR310Module());
+        objectMapper.registerModule(new JavaTimeModule());
         objectMapper.registerModule(new Jdk8Module());
 
         objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
