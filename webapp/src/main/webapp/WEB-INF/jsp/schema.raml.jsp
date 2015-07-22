@@ -1,7 +1,4 @@
-<%@ page language="java" session="false" contentType="application/raml+yaml; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-#%RAML 0.8
+<%@ page language="java" session="false" contentType="application/raml+yaml; charset=UTF-8" pageEncoding="UTF-8"%><%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %><%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>#%RAML 0.8
 
 title: CCG REST API
 baseUri: ${fn:replace(pageContext.request.requestURL, pageContext.request.requestURI, '')}${pageContext.request.contextPath}<c:url value="/api" />
