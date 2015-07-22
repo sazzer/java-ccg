@@ -37,7 +37,8 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     /** {@inheritDoc} */
     @Override
     public void addResourceHandlers(final ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
+        registry.addResourceHandler("/resources/**").addResourceLocations("classpath:/resources/");
+        registry.addResourceHandler("/api/schema/**/*.json").addResourceLocations("classpath:/schema/");
     }
 
     /**
