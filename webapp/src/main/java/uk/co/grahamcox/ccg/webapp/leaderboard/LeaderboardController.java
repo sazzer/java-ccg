@@ -1,12 +1,15 @@
 package uk.co.grahamcox.ccg.webapp.leaderboard;
 
-import java.util.Arrays;
-import java.util.UUID;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import uk.co.grahamcox.ccg.webapp.types.Entry;
+import uk.co.grahamcox.ccg.webapp.types.Leaderboard;
+import uk.co.grahamcox.ccg.webapp.types.User;
+
+import java.util.UUID;
 
 /**
  * Controller for loading the Leaderboard details
@@ -23,15 +26,20 @@ public class LeaderboardController {
     @RequestMapping(method = RequestMethod.GET)
     @ResponseBody
     @SuppressWarnings("checkstyle:magicnumber")
-    public PagedList<LeaderboardEntry> getLeaderboard(
+    public Leaderboard getLeaderboard(
         @RequestParam(value = "offset", required = false, defaultValue = "0") final int offset,
         @RequestParam(value = "count", required = false, defaultValue = "10") final int count) {
-        return new PagedList<>(Arrays.asList(
-            new LeaderboardEntry(new UserLink(UUID.randomUUID().toString(), "Graham"), 12345),
-            new LeaderboardEntry(new UserLink(UUID.randomUUID().toString(), "Fred"), 1234),
-            new LeaderboardEntry(new UserLink(UUID.randomUUID().toString(), "George"), 123),
-            new LeaderboardEntry(new UserLink(UUID.randomUUID().toString(), "Harry"), 12),
-            new LeaderboardEntry(new UserLink(UUID.randomUUID().toString(), "Simon"), 1)
-        ), 200);
+
+        Entry entry = new Entry();
+        entry.setRank(1);
+        entry.setScore(12345);
+        entry.setUser(new User());
+        entry.getUser().setId(UUID.randomUUID().toString());
+        entry.getUser().setName("Graham");
+
+        Leaderboard leaderboard = new Leaderboard();
+        leaderboard.getEntries().add(entry);
+        leaderboard.setTotalResults(200);
+        return leaderboard;
     }
 }
