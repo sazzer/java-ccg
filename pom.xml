@@ -238,6 +238,7 @@
                         <consoleOutput>true</consoleOutput>
                         <failsOnError>true</failsOnError>
                         <linkXRef>true</linkXRef>
+                        <excludes>${project.build.directory}/generated-sources/**/*.java</excludes>
                     </configuration>
                 </plugin>
                 <plugin>
