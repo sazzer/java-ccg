@@ -2,15 +2,13 @@
   "$schema": "http://json-schema.org/draft-04/schema#",
   "title": "Entire list of entries on a Leaderboard",
   "description": "",
-  "links": [
-
-  ],
   "type": "object",
+  "javaType": "uk.co.grahamcox.ccg.webapp.types.Leaderboard",
   "properties": {
     "entries": {
       "type": "array",
       "items": {
-        "$ref": "LeaderboardEntry.json"
+        "$ref": "#/definitions/entry"
       }
     },
     "totalResults": {
@@ -18,8 +16,34 @@
     }
   },
   "required": [
-    "enries",
+    "entries",
     "totalResults"
   ],
-  "additionalProperties": false
+  "additionalProperties": false,
+  "definitions": {
+    "entry": {
+      "$schema": "http://json-schema.org/draft-04/schema#",
+      "title": "Single entry on the Leaderboard",
+      "description": "",
+      "type": "object",
+      "javaType": "uk.co.grahamcox.ccg.webapp.types.LeaderboardEntry",
+      "properties": {
+        "user": {
+          "$ref": "Users.json#/definitions/user-link"
+        },
+        "score": {
+          "type": "integer"
+        },
+        "rank": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "user",
+        "score",
+        "rank"
+      ],
+      "additionalProperties": false
+    }
+  }
 }

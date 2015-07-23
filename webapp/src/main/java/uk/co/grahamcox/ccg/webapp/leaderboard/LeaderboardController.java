@@ -5,9 +5,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import uk.co.grahamcox.ccg.webapp.types.Entry;
-import uk.co.grahamcox.ccg.webapp.types.Leaderboard;
-import uk.co.grahamcox.ccg.webapp.types.User;
+import uk.co.grahamcox.ccg.webapp.types.LeaderboardEntryType;
+import uk.co.grahamcox.ccg.webapp.types.LeaderboardType;
+import uk.co.grahamcox.ccg.webapp.types.UserLinkType;
 
 import java.util.UUID;
 
@@ -26,18 +26,18 @@ public class LeaderboardController {
     @RequestMapping(method = RequestMethod.GET)
     @ResponseBody
     @SuppressWarnings("checkstyle:magicnumber")
-    public Leaderboard getLeaderboard(
+    public LeaderboardType getLeaderboard(
         @RequestParam(value = "offset", required = false, defaultValue = "0") final int offset,
         @RequestParam(value = "count", required = false, defaultValue = "10") final int count) {
 
-        Entry entry = new Entry();
+        LeaderboardEntryType entry = new LeaderboardEntryType();
         entry.setRank(1);
         entry.setScore(12345);
-        entry.setUser(new User());
+        entry.setUser(new UserLinkType());
         entry.getUser().setId(UUID.randomUUID().toString());
         entry.getUser().setName("Graham");
 
-        Leaderboard leaderboard = new Leaderboard();
+        LeaderboardType leaderboard = new LeaderboardType();
         leaderboard.getEntries().add(entry);
         leaderboard.setTotalResults(200);
         return leaderboard;
