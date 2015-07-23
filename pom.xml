@@ -347,6 +347,7 @@
                         <linkXref>true</linkXref>
                         <sourceEncoding>${project.build.sourceEncoding}</sourceEncoding>
                         <targetJdk>${version.jdk}</targetJdk>
+                        <excludeFilterFile>findbugs-excludes.xml</excludeFilterFile>
                     </configuration>
                 </plugin>
                 <plugin>

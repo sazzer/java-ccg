@@ -1,0 +1,5 @@
+<FindBugsFilter>
+    <Match>
+        <Package name="uk.co.grahamcox.ccg.webapp.types" />
+    </Match>
+</FindBugsFilter>
