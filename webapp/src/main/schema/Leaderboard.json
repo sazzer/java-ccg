@@ -29,7 +29,7 @@
       "javaType": "uk.co.grahamcox.ccg.webapp.types.LeaderboardEntry",
       "properties": {
         "user": {
-          "$ref": "Users.json#/definitions/user-link"
+          "$ref": "User.json#/definitions/user-link"
         },
         "score": {
           "type": "integer"
