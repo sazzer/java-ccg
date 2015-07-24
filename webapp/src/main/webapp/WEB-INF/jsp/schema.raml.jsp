@@ -27,6 +27,21 @@ schemas:
                     application/json:
                         schema: Leaderboard
 /users:
+    post:
+        description: Create a new User
+        body:
+            application/json:
+                schema: User
+        responses:
+            201:
+                description: The user was successfully created
+                body:
+                    application/json:
+                        schema: User
+            400:
+                description: The user details were not valid
+            409:
+                description: The user to be created was a duplicate in some way
     /me:
         get:
             description: Get the user details of the currently authenticated user
@@ -53,3 +68,25 @@ schemas:
                     description: The request has not been authenticated
                 403:
                     description: The request has been authenticated but is not allowed to see the details of this user
+        put:
+            description: Update the user details of the requested user
+            body:
+                application/json:
+                    schema: User
+            responses:
+                200:
+                    description: The user was successfully updated
+                    body:
+                        application/json:
+                            schema: User
+                400:
+                    description: The user details were not valid
+                409:
+                    description: The request was for an old version of the user
+        delete:
+            description: Delete the user details of the requested user
+            responses:
+                204:
+                    description: The user was successfully deleted
+                409:
+                    description: The request was for an old version of the user
