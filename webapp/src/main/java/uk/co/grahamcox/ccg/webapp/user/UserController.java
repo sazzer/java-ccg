@@ -23,7 +23,8 @@ public class UserController {
     @RequestMapping(value = "/me", method = RequestMethod.GET)
     @ResponseBody
     public UserType getMe() {
-        throw new UnsupportedOperationException("Not implemented yet");
+        // TODO: Fix the hard-coded User ID when Authentication is supported
+        return getUser("123456");
     }
 
     /**
