@@ -2,6 +2,7 @@ package uk.co.grahamcox.ccg.webapp.spring.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import uk.co.grahamcox.ccg.users.UserLoader;
 import uk.co.grahamcox.ccg.webapp.user.UserController;
 import uk.co.grahamcox.ccg.webapp.user.UserTranslator;
@@ -9,6 +10,7 @@ import uk.co.grahamcox.ccg.webapp.user.UserTranslator;
 /**
  * Controller Config for the Users Controller
  */
+@Configuration
 public class UsersControllerConfig {
     /** The user loader service */
     @Autowired

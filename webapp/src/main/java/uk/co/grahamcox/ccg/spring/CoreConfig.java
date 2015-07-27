@@ -13,6 +13,7 @@ import java.time.Clock;
  */
 @Configuration
 @Import({
+    DatabaseConfig.class,
     UsersServiceConfig.class
 })
 public class CoreConfig {
