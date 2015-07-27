@@ -167,7 +167,9 @@
         <!-- See http://checkstyle.sf.net/config_misc.html -->
         <module name="ArrayTypeStyle"/>
         <module name="FinalParameters" />
-        <module name="TodoComment"/>
+        <module name="TodoComment">
+            <property name="severity" value="${checkstyle.todoComment.severity}" default="WARNING" />
+        </module>
         <module name="UpperEll"/>
         <module name="AnnotationLocation">
             <property name="allowSamelineMultipleAnnotations" value="false"/>

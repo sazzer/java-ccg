@@ -2,7 +2,9 @@ package uk.co.grahamcox.ccg.spring;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
+import uk.co.grahamcox.ccg.spring.services.UsersServiceConfig;
 
 import java.time.Clock;
 
@@ -10,6 +12,9 @@ import java.time.Clock;
  * Core spring context containing non-webapp configuration
  */
 @Configuration
+@Import({
+    UsersServiceConfig.class
+})
 public class CoreConfig {
     /**
      * Create the clock to use
