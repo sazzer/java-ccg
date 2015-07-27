@@ -13,14 +13,14 @@ public class VersionedId<T extends Id<?>> {
     private final T id;
 
     /** The version number */
-    private final long version;
+    private final int version;
 
     /**
      * Construct the Versioned ID
      * @param id the ID
      * @param version the Version Number
      */
-    public VersionedId(final T id, final long version) {
+    public VersionedId(final T id, final int version) {
         this.id = id;
         this.version = version;
     }
@@ -39,7 +39,7 @@ public class VersionedId<T extends Id<?>> {
      *
      * @return {@link #version}
      */
-    public long getVersion() {
+    public int getVersion() {
         return version;
     }
 
