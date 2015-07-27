@@ -9,10 +9,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import uk.co.grahamcox.ccg.VersionedId;
 import uk.co.grahamcox.ccg.users.User;
 import uk.co.grahamcox.ccg.users.UserId;
 import uk.co.grahamcox.ccg.users.UserLoader;
 import uk.co.grahamcox.ccg.webapp.RecordNotFoundException;
+import uk.co.grahamcox.ccg.webapp.RecordVersionMismatchException;
 import uk.co.grahamcox.ccg.webapp.types.UserType;
 
 import java.util.Optional;
@@ -46,6 +48,15 @@ public class UserController {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(RecordNotFoundException.class)
     public void recordNotFound() {
+
+    }
+
+    /**
+     * Exception Handler for when the requested record wasn't of the correct version
+     */
+    @ResponseStatus(HttpStatus.CONFLICT)
+    @ExceptionHandler(RecordVersionMismatchException.class)
+    public void recordVersionMismatch() {
 
     }
 
@@ -84,7 +95,17 @@ public class UserController {
     @ResponseBody
     public UserType updateUser(@PathVariable("userId") final String userId,
         @RequestBody final UserType user) {
-        throw new UnsupportedOperationException("Not implemented yet");
+        User currentUser = userLoader.loadUserById(new UserId(userId))
+            .orElseThrow(RecordNotFoundException::new);
+
+        if (user.getVersion() != null) {
+            VersionedId<UserId> currentUserId = currentUser.getId().orElseThrow(RecordVersionMismatchException::new);
+            if (!user.getVersion().equals(currentUserId.getVersion())) {
+                throw new RecordVersionMismatchException();
+            }
+        }
+
+        return null;
     }
 
     /**
