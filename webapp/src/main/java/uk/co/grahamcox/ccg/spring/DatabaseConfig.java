@@ -38,7 +38,7 @@ public class DatabaseConfig {
 
         Database database = DatabaseFactory.getInstance()
             .findCorrectDatabaseImplementation(new JdbcConnection(dataSource.getConnection()));
-        Liquibase liquibase = new Liquibase("uk/co/grahamcox/ccg/database/changelog.master.xml",
+        Liquibase liquibase = new Liquibase("uk/co/grahamcox/ccg/database/changelog-master.xml",
             new ClassLoaderResourceAccessor(),
             database);
         liquibase.updateTestingRollback(null);
