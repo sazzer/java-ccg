@@ -9,19 +9,23 @@
 
 package uk.co.grahamcox.ccg.webapp.cucumber.steps;
 
-import cucumber.api.PendingException;
-import cucumber.api.java.en.Given;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.ContextHierarchy;
+import org.springframework.test.context.web.WebAppConfiguration;
+import uk.co.grahamcox.ccg.spring.CoreConfig;
+import uk.co.grahamcox.ccg.webapp.spring.WebappConfig;
 
 /**
- * Steps for working with authentication
+ * Base class to use for steps, to group the common config together
  */
-public class AuthenticationSteps extends StepBase {
-    /**
-     * Record that we are authenticated as a given user
-     * @param userId the user to authenticate as
-     */
-    @Given("^that I am authenticated as user \"(.+)\"$")
-    public void authenticateAsUser(String userId) {
-        throw new PendingException();
-    }
+@ActiveProfiles("test")
+@ContextHierarchy({
+    @ContextConfiguration(classes = {
+        CoreConfig.class,
+        WebappConfig.class
+    })
+})
+@WebAppConfiguration
+public abstract class StepBase {
 }

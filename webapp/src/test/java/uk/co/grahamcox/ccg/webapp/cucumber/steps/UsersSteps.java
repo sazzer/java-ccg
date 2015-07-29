@@ -17,7 +17,7 @@ import cucumber.api.java.en.When;
 /**
  * Steps for working with Users
  */
-public class UsersSteps {
+public class UsersSteps extends StepBase {
     /**
      * Attempt to get the user details of the currently logged in user
      */
